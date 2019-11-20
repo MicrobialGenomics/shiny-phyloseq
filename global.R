@@ -1,6 +1,7 @@
 # load packages
 # Run the auto-installer/updater code:
-source("install.R", local = TRUE)
+#source("install.R", local = TRUE)
+source("deppkgs.R", local = TRUE)
 # Default options for app startup
 source("core/default-parameters.R", local = TRUE)
 # For pasting times into things
@@ -87,17 +88,14 @@ shiny_phyloseq_ggtheme_list <- list(
 # Create an environment to store original loaded data
 env_psdata = new.env()
 # Keep server-loaded data into a special environemnt, `env_psdata`
-data(list=c("GlobalPatterns", "enterotype", "esophagus"), envir = env_psdata)
-load("data/kostic.RData", envir = env_psdata)
-load("data/1457_uparse.RData", envir = env_psdata)
+#data(list=c("GlobalPatterns", "enterotype", "esophagus"), envir = env_psdata)
+load("/home/shiny/downloadedData/DADA2_Rsession.RData", envir = env_psdata)
+#load("/home/cfuentes@irsicaixa.es/Documentos/Code/awsCode/Enthera-SeqAnalysis-DATA/16S/downloadedData/idJob_271/DADA2_Rsession.RData", envir = env_psdata)
+#load("data/1457_uparse.RData", envir = env_psdata)
 attach(env_psdata)
 # Define initial list of available datasets
 datalist = list(
-  closed_1457_uparse = closed_1457_uparse,
-  study_1457_Kostic = kostic,
-  GlobalPatterns = GlobalPatterns,
-  enterotype = enterotype,
-  esophagus = esophagus)
+  DADA2_silva = ps_silva)
 ########################################
 # Plot Rendering Stuff.
 ########################################

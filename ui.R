@@ -1,3 +1,4 @@
+
 # Define generic graphic-type select UI.
 # `graphicFormats` is defined globally, called by global.R when it sources ggsave.R
 graphicTypeUI = function(inputId, label="Format", choices=graphicFormats, selected="pdf"){
@@ -154,6 +155,7 @@ transpage = fluidPage(
 # Define general header tag list 
 # List of tags to display as a common header above all tabPanels.
 ################################################################################
+source("js-scripts/inactivity.R")
 headerTagList = list(
   tags$style(type="text/css", ".phyloseq-print { font-size: 10px; }"),
   tags$base(target="_blank")
@@ -161,7 +163,8 @@ headerTagList = list(
 ################################################################################
 # Define the full user-interface, `ui`
 ################################################################################
-ui = navbarPage(
+ui1 = function() {    
+  navbarPage(
   title = h4(a(href="http://joey711.github.io/shiny-phyloseq/", style="color:#F0F0F0",  "Shiny-phyloseq")),
   tabPanel("Select Dataset", datapage),
   tabPanel("Filter", filterpage),
@@ -179,6 +182,20 @@ ui = navbarPage(
   header = headerTagList,
   collapsible = TRUE,
   windowTitle = "Shiny-phyloseq"
-)
+  )
+}
+
+ui2 <- function() {
+  tagList(
+    h4("You are unauthorized"),
+    actionButton(inputId='return', label="Go to Enthera", 
+                       icon = icon("th"), 
+                       onclick ="location.href='http://localhost/enthera-dev/';"))
+  
+    
+}
+
+ui = fluidPage( tags$script(inactivity),htmlOutput("page"))
+
 shinyUI(ui)
 ################################################################################

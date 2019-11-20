@@ -6,6 +6,7 @@
 options(shiny.maxRequestSize = 100*1024^2)
 # Set Shiny Reaction Log to TRUE
 options(shiny.reactlog=TRUE)
+
 # Default ggplot2 theme (Only relevant if panel-specific theme missing or NULL)
 theme_set(theme_bw())
 ################################################################################
@@ -14,7 +15,44 @@ theme_set(theme_bw())
 # First store the inventory of objects (for provenance record)
 shinyPhyloseqServerObjectsList = ls()
 
-shinyServer(function(input, output){
+source("ui.R", local = TRUE)
+source("/shiny-token-auth/security.R")
+
+shinyServer(function(input, output,session){
+
+  #User inactivity
+  observeEvent(input$timeOut, { 
+    cat(file=stderr(),(paste0("Session (", session$token, ") timed out at: ", Sys.time())))
+    showModal(modalDialog(
+      title = "Timeout",
+      paste("Session timeout due to", input$timeOut, "inactivity -", Sys.time()),
+      footer = NULL
+   ))
+    cat(file=stderr(), "TIMEOUT")
+    system("killall /dev/init -- shiny-server.sh")
+    
+  })
+
+  #Token authorization
+
+  isAuth <- reactive({ return (isValidToken(session$clientData$url_search)) })
+  observe({
+    isAuth()
+    cat(file=stderr(), "isAuth","\n")
+    if (isAuth()) {
+      output$page <- renderUI({
+        div(class="outer",do.call(fluidPage,c("",ui1())))
+      })
+    } else  {
+      output$page <- renderUI({
+        div(class="outer",do.call(fluidPage,c(inverse=TRUE,title = "Forbidden",ui2())))
+      
+      
+      })
+    }
+  })
+
+ 
   # Data panel
   source("panels/panel-server-data.R", local = TRUE)
   # Filtering
@@ -92,3 +130,4 @@ shinyServer(function(input, output){
   source("panels/panel-server-provenance.R", local = TRUE)
 })
 ################################################################################
+
