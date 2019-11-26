@@ -3,6 +3,7 @@
 # filter_subset_taxa_expr
 ################################################################################
 output$filter_uix_subset_taxa_ranks <- renderUI({
+  cat(file=stderr(), "filteeer","\n")
   rankNames = list("NULL"="NULL")
   rankNames <- c(rankNames, as.list(rank_names(get_phyloseq_data(), errorIfNULL=FALSE)))
   rankNames <- c(rankNames, list(OTU="OTU"))

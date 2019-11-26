@@ -1,5 +1,5 @@
 
-timeoutSeconds <- 60*5
+timeoutSeconds <- Inf
 
 inactivity <- sprintf("function idleTimer() {
 var t = setTimeout(logout, %s);

@@ -16,7 +16,8 @@ theme_set(theme_bw())
 shinyPhyloseqServerObjectsList = ls()
 
 source("ui.R", local = TRUE)
-source("/shiny-token-auth/security.R")
+shiny_auth_path<- paste0(Sys.getenv("SHINY_TOKEN_PATH"),"/security.R")
+source(shiny_auth_path)
 
 shinyServer(function(input, output,session){
 
