@@ -91,6 +91,7 @@ env_psdata = new.env()
 #data(list=c("GlobalPatterns", "enterotype", "esophagus"), envir = env_psdata)
 #load("/home/shiny/downloadedData/DADA2_Rsession.RData", envir = env_psdata)
 #load("/home/cfuentes@irsicaixa.es/Documentos/Code/awsCode/Enthera-SeqAnalysis-DATA/16S/downloadedData/idJob_271/DADA2_Rsession.RData", envir = env_psdata)
+
 R_data_path <- paste0(Sys.getenv("SHINY_DATA_PATH"),"/DADA2_Rsession.RData")
 
 load(R_data_path, envir = env_psdata)

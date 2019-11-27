@@ -10,4 +10,4 @@
 
 *.Rproj
 *.env
-my_env.R
+*.Renviron
