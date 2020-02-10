@@ -1,6 +1,6 @@
 # Data I/O page
 sbp_data = sidebarPanel(
-  uiOutput("phyloseqDataset"),
+  uiOutput("phyloseqDataset")
   #h5("Upload",
   #   a("Biom-Format", href="http://joey711.github.io/phyloseq/import-data.html#import_biom"),
   #   "File"),
