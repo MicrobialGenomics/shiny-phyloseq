@@ -166,7 +166,7 @@ headerTagList = list(
 ui1 = function() {    
   navbarPage(
   title = h4(a(href="http://joey711.github.io/shiny-phyloseq/", style="color:#F0F0F0",  "Shiny-phyloseq")),
-  tabPanel("Select Dataset", datapage),
+  tabPanel("Dataset", datapage),
   tabPanel("Filter", filterpage),
   tabPanel("Alpha Diversity", richpage),
   tabPanel("Network", netpage),

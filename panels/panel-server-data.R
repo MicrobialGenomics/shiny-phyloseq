@@ -82,7 +82,7 @@ output$phyloseqDataset <- renderUI({
   # Process tree (and in principle, other components) last
   process_uploaded_tree()
   return(
-    selectInput("physeqSelect", "Select Dataset", names(datalist))
+    selectInput("physeqSelect", "Selected Dataset", names(datalist))
   )
 })
 get_phyloseq_data = reactive({

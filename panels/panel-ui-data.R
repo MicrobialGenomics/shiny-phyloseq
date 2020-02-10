@@ -5,16 +5,16 @@ sbp_data = sidebarPanel(
   #   a("Biom-Format", href="http://joey711.github.io/phyloseq/import-data.html#import_biom"),
   #   "File"),
   #fileInput('filebiom', "", multiple = TRUE),
-  h5("Upload", 
-     a(".RData", href="http://joey711.github.io/phyloseq/import-data.html"),
-     "File"),
-  fileInput('file1', ""),
-  h5("Upload", a("Tree", href="http://rgm.ogalab.net/RGM/R_rdfile?f=phyloseq/man/read_tree.Rd&d=R_BC"), "File"),
-  fileInput('treefile', "", multiple = FALSE)
+  #h5("Upload", 
+  #    a(".RData", href="http://joey711.github.io/phyloseq/import-data.html"),
+  #    "File"),
+  # fileInput('file1', ""),
+  # h5("Upload", a("Tree", href="http://rgm.ogalab.net/RGM/R_rdfile?f=phyloseq/man/read_tree.Rd&d=R_BC"), "File"),
+  # fileInput('treefile', "", multiple = FALSE)
 )
 
 datapage = fluidPage(
-  headerPanel("Dataset Upload and Selection"),
+  headerPanel("Dataset"),
   sbp_data,
   column(width = 8,
     h4("Histograms for Selected Data"),
