@@ -1,4 +1,5 @@
 # load packages
+readRenviron(".env")
 # Run the auto-installer/updater code:
 #source("install.R", local = TRUE)
 source("deppkgs.R", local = TRUE)

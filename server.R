@@ -17,8 +17,13 @@ shinyPhyloseqServerObjectsList = ls()
 
 source("ui.R", local = TRUE)
 
-shiny_auth_path<- paste0(Sys.getenv("SHINY_TOKEN_PATH"),"/security.R")
-source(shiny_auth_path)
+shiny_env <- Sys.getenv("SHINY_ENV")
+
+if(shiny_env == "PRODUCTION") {
+  shiny_auth_path <- paste0(Sys.getenv("SHINY_TOKEN_PATH"),"/security.R")
+  source(shiny_auth_path)
+}
+
 
 shinyServer(function(input, output,session){
 
@@ -37,7 +42,7 @@ shinyServer(function(input, output,session){
 
   #Token authorization
 
-  isAuth <- reactive({ return (isValidToken(session$clientData$url_search)) })
+  isAuth <- reactive({ return ( if (shiny_env == "DEVELOPMENT") TRUE else isValidToken(session$clientData$url_search)) })
   observe({
     isAuth()
     cat(file=stderr(), "isAuth","\n")
