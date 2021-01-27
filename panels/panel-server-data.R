@@ -87,6 +87,7 @@ output$phyloseqDataset <- renderUI({
 })
 get_phyloseq_data = reactive({
   ps0 = NULL
+  print(input$physeqSelect)
   if(!is.null(input$physeqSelect)){
     if(input$physeqSelect %in% names(datalist)){
       ps0 <- datalist[[input$physeqSelect]]

@@ -64,6 +64,7 @@ output$filter_uix_subset_sample_select <- renderUI({
 ################################################################################
 physeq = reactive({
   ps0 = get_phyloseq_data()
+  print(ps0)
   if(input$actionb_filter == 0){
     # Don't execute filter if filter-button has never been clicked.
     if(inherits(ps0, "phyloseq")){

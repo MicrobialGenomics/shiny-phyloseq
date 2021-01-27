@@ -9,6 +9,7 @@ source("core/default-parameters.R", local = TRUE)
 simpletime = function(){gsub("\\D", "_", Sys.time())}
 # Graphic-saving utilities
 source("core/ggsave.R", local = TRUE)
+source("r-moduls/load-data.R")
 ################################################################################
 # Function for standard-out phyloseq print summary in HTML
 #
@@ -93,14 +94,10 @@ env_psdata = new.env()
 #load("/home/shiny/downloadedData/DADA2_Rsession.RData", envir = env_psdata)
 #load("/home/cfuentes@irsicaixa.es/Documentos/Code/awsCode/Enthera-SeqAnalysis-DATA/16S/downloadedData/idJob_271/DADA2_Rsession.RData", envir = env_psdata)
 
-R_data_path <- paste0(Sys.getenv("SHINY_DATA_PATH"),"/DADA2_Rsession.RData")
+R_data_paths <- getRDataPaths()
 
-load(R_data_path, envir = env_psdata)
-attach(env_psdata)
+datalist <-getPhyloseqObj(R_data_paths,env_psdata)
 
-# Define initial list of available datasets
-datalist = list(
-  DADA2_silva = ps_silva)
 ########################################
 # Plot Rendering Stuff.
 ########################################
