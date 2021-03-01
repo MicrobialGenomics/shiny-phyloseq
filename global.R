@@ -97,7 +97,7 @@ env_psdata = new.env()
 R_data_paths <- getRDataPaths()
 
 datalist <-getPhyloseqObj(R_data_paths,env_psdata)
-
+#cat(file=stderr(),tax_table(datalist$Metaphlan3_psObject),"\n")
 ########################################
 # Plot Rendering Stuff.
 ########################################
@@ -179,6 +179,7 @@ tablify_phyloseq_component = function(component, colmax=25L){
   }
   if(inherits(component, "taxonomyTable")){
     Table = component@.Data
+  
   }
   if(inherits(component, "otu_table")){
     if(!taxa_are_rows(component)){component <- t(component)}
@@ -191,8 +192,10 @@ component_options = function(physeq){
   # Initialize the return option list
   component_option_list = list("NULL"="NULL")
   # Get logical vector of components
+  
   nonEmpty = sapply(slotNames(physeq), function(x, ps){!is.null(access(ps, x))}, ps=physeq)
-  if(sum(nonEmpty)<1){return(NULL)}
+
+  if( length(nonEmpty) == 0 || sum(nonEmpty)<1){return(NULL)}
   # Convert to vector of slot-name strings for non-empty components
   nonEmpty <- names(nonEmpty)[nonEmpty]
   # Cull the non-table components
