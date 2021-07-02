@@ -10,7 +10,7 @@ loop=TRUE
 ################################################################################
 # sample_sums_threshold
 # input$filter_sample_sums_threshold
-SampleSumDefault = 1000
+SampleSumDefault = 0
 # taxa_sums threshold 
 # input$filter_taxa_sums_threshold
 OTUSumDefault = 10

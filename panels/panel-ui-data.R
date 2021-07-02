@@ -29,7 +29,7 @@ datapage = fluidPage(
     )),
     dataTableOutput('ps0ComponentTable')
   ),
-  fluidRow(column(width = 12,
-                  includeMarkdown("panels/paneldoc/data.md")
-  ))
+  # fluidRow(column(width = 12,
+  #                 includeMarkdown("panels/paneldoc/data.md")
+  # ))
 )

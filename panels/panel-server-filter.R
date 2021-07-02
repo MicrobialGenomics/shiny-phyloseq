@@ -3,7 +3,6 @@
 # filter_subset_taxa_expr
 ################################################################################
 output$filter_uix_subset_taxa_ranks <- renderUI({
-  cat(file=stderr(), "filteeer","\n")
   rankNames = list("NULL"="NULL")
   rankNames <- c(rankNames, as.list(rank_names(get_phyloseq_data(), errorIfNULL=FALSE)))
   rankNames <- c(rankNames, list(OTU="OTU"))
@@ -85,10 +84,14 @@ physeq = reactive({
             keepTaxa = input$filter_rank_selection
           } else {
             TT = as(tax_table(ps0), "matrix")
+            cat(file=stderr(), "aqui 1")
             keepTaxa = TT[, input$filter_rank] %in% input$filter_rank_selection 
+            cat(file=stderr(), "aqui 2")
           }
           if(length(keepTaxa) > 1){
+           
             ps0 <- prune_taxa(keepTaxa, ps0)
+           
           } else {
             warning("Bad subset_taxa specification. ntaxa(ps0) one or fewer OTUs")
           }
@@ -105,6 +108,7 @@ physeq = reactive({
             keepSamples = varvec %in% input$filter_samvars_selection 
           }
           if(length(keepSamples) > 1){
+           
             ps0 <- prune_samples(keepSamples, ps0)
           } else {
             warning("Bad subset_taxa specification. ntaxa(ps0) one or fewer OTUs")
@@ -116,8 +120,9 @@ physeq = reactive({
         ps0 <- prune_taxa({taxa_sums(ps0) > input$filter_taxa_sums_threshold}, ps0)
       }
       if( input$filter_sample_sums_threshold > 0 ){
-        # Sample sums filtering
+        # Sample sums filteringW
         ps0 <- prune_samples({sample_sums(ps0) > input$filter_sample_sums_threshold}, ps0)
+      
       }
       if(inherits(input$filter_kOverA_sample_threshold, "numeric")){
         if(input$filter_kOverA_sample_threshold > 1){
