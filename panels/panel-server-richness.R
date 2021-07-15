@@ -33,11 +33,20 @@ make_richness_plot = reactive({
   try(p4 <- plot_richness(physeq_rich(),
                           measures = input$measures_rich),
       silent=TRUE)
+
   return(p4)
 })
+
+get_richness_df= reactive({
+  df=NULL
+  try(df<-estimate_richness(physeq_rich(),
+                            measures = input$measures_rich))
+})
+
 finalize_richness_plot = reactive({
-  p4 = make_richness_plot()
+  p4 = make_richness_plot() 
   if(inherits(p4, "ggplot")){
+    p4<- p4+ geom_boxplot()
     # Adjust size/alpha of points, but not error bars
     p4$layers[[1]]$geom_params$size <- input$size_rich
     p4$layers[[1]]$geom_params$alpha <- input$alpha_rich
@@ -90,6 +99,7 @@ finalize_richness_plot = reactive({
         } 
       }      
     }
+    
     return(p4)
   } else {
     # If for any reason p4 is not a ggplot at this point,
@@ -108,5 +118,12 @@ output$download_rich <- downloadHandler(
             plot=finalize_richness_plot(),
             device=input$downtype_rich,
             width=input$width_rich, height=input$height_rich, dpi=300L, units="in")
+  }
+)
+
+output$download_rich_excel <- downloadHandler(
+  filename = function(){paste0("Richness_excel_", simpletime(), ".csv")},
+  content = function(file){
+    write.csv(get_richness_df(), file)
   }
 )

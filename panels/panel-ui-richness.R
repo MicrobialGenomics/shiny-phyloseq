@@ -7,7 +7,7 @@ sbp_rich = sidebarPanel(
   fluidRow(column(width = 12,                  
                   div(class='col-md-6', uiOutput("rich_uix_x")),
                   div(class='col-md-6', uiOutput("rich_uix_color")),
-                  div(class='col-md-5', uiOutput("rich_uix_shape")),
+                  # div(class='col-md-5', uiOutput("rich_uix_shape")),
                   div(class='col-md-6', 
                       selectInput(inputId="measures_rich",
                               label="alpha Measures",
@@ -40,7 +40,14 @@ sbp_rich = sidebarPanel(
                                selected="Original",
                                inline = TRUE)
                   )),
-  dim_and_down("_rich")
+  dim_and_down("_rich"),
+   fluidRow(column(
+    width = 12,
+    h4("Download excel"),
+    div(class='col-md-2', div(style="display:inline-block", tags$label("DL"),
+                           downloadButton(paste0("download_rich_excel"), '  ')))
+  ))
+
 )
 ################################################################################
 ## https://github.com/rstudio/shiny/wiki/Shiny-Application-Layout-Guide#grid-layouts-in-depth
